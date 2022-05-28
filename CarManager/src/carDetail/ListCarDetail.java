@@ -1,21 +1,21 @@
-package car;
+package carDetail;
 
 import Helper.XFile;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class ListCar {
+public class ListCarDetail {
 
-    ArrayList<Car> list = new ArrayList<>();
-    private String path = "listCar.dat";
+    ArrayList<CarDetail> list = new ArrayList<>();
+    private String path = "listCarDetail.dat";
 
-    public void add(Car car) {
+    public void add(CarDetail car) {
         list.add(car);
     }
 
-    public Car findById(String id) {
-        for (Car car : list) {
+    public CarDetail findById(String id) {
+        for (CarDetail car : list) {
             if (car.getId().equals(id)) {
                 return car;
             }
@@ -24,16 +24,16 @@ public class ListCar {
     }
 
     public void deleteById(String id) {
-        for (Car car : list) {
+        for (CarDetail car : list) {
             if (car.getId().equals(id)) {
                 list.remove(car);
             }
         }
     }
 
-    public boolean replace(String id, Car car) {
+    public boolean replace(String id, CarDetail car) {
         int i=0;
-        for (Car cars : list) {
+        for (CarDetail cars : list) {
             if (cars.getId().equals(id)) {
                 list.set(i, car);
                 return true;
@@ -44,7 +44,7 @@ public class ListCar {
     }
     
     public void print(){
-        for (Car car : list) {
+        for (CarDetail car : list) {
             System.out.println(car);
         }
     }
@@ -52,7 +52,7 @@ public class ListCar {
     public void loadFile() throws Exception {
         File file = new File(path);
         if (file.exists()) {
-            list = (ArrayList<Car>) XFile.readFile(path);
+            list = (ArrayList<CarDetail>) XFile.readFile(path);
         }
     }
 
@@ -64,7 +64,7 @@ public class ListCar {
         table.setRowCount(0);
 
         int i = 1;
-        for (Car car : list) {
+        for (CarDetail car : list) {
             Object[] row = new Object[]{
                 i, car.getId(), car.getName(), car.getBrand(), car.getYear(), car.getAmount(), car.getCost(), " "
             };
