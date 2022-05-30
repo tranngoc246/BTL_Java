@@ -3,6 +3,9 @@ package car;
 import Helper.XFile;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 
 public class ListCar {
@@ -32,7 +35,7 @@ public class ListCar {
     }
 
     public boolean replace(String id, Car car) {
-        int i=0;
+        int i = 0;
         for (Car cars : list) {
             if (cars.getId().equals(id)) {
                 list.set(i, car);
@@ -42,8 +45,24 @@ public class ListCar {
         }
         return false;
     }
-    
-    public void print(){
+
+    public void sortById() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getId().compareTo(o2.getId()));
+    }
+
+    public void sortByName() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getName().compareTo(o2.getName()));
+    }
+
+    public void sortByAmount() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getAmount() > o2.getAmount() ? 1 : -1);
+    }
+
+    public void sortByCost() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getCost() > o2.getCost() ? 1 : -1);
+    }
+
+    public void print() {
         for (Car car : list) {
             System.out.println(car);
         }

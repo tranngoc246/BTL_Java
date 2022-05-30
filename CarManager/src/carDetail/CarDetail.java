@@ -5,6 +5,7 @@
 package carDetail;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,55 +13,20 @@ import java.util.Date;
  * @author admin
  */
 public class CarDetail implements Serializable {
-    private String id, name, brand;
-    private int year,amount;
-    private double cost;
-    private Date ngayNhap,ngayXuat;
+    private String id;
+    private int amount;
+    private double price;
+    private LocalDate ngayNhap,ngayXuat;
 
     public CarDetail() {
     }
 
-    public CarDetail(String id, String name, String brand, int year, int amount, double cost, Date ngayNhap, Date ngayXuat) {
+    public CarDetail(String id, LocalDate ngayNhap, LocalDate ngayXuat,int amount, double price) {
         this.id = id;
-        this.name = name;
-        this.brand = brand;
-        this.year = year;
-        this.amount = amount;
-        this.cost = cost;
+        this.price = price;
         this.ngayNhap = ngayNhap;
         this.ngayXuat = ngayXuat;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+        this.amount=amount;
     }
 
     public int getAmount() {
@@ -71,27 +37,41 @@ public class CarDetail implements Serializable {
         this.amount = amount;
     }
 
-    public double getCost() {
-        return cost;
+    public String getId() {
+        return id;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Date getNgayNhap() {
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public LocalDate getNgayNhap() {
         return ngayNhap;
     }
 
-    public void setNgayNhap(Date ngayNhap) {
+    public void setNgayNhap(LocalDate ngayNhap) {
         this.ngayNhap = ngayNhap;
     }
 
-    public Date getNgayXuat() {
+    public LocalDate getNgayXuat() {
         return ngayXuat;
     }
 
-    public void setNgayXuat(Date ngayXuat) {
+    public void setNgayXuat(LocalDate ngayXuat) {
         this.ngayXuat = ngayXuat;
     }
+
+    @Override
+    public String toString() {
+        return "CarDetail{" + "id=" + id + ", amount=" + amount + ", price=" + price + ", ngayNhap=" + ngayNhap + ", ngayXuat=" + ngayXuat + '}';
+    }
+
 }
