@@ -31,22 +31,20 @@ class MyRendererAndEditor implements TableCellRenderer, TableCellEditor {
             int i = JOptionPane.showConfirmDialog(btn, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 String id = (String) model.getValueAt(row, 1);
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            list.deleteById(id);
-                        } catch (Exception e) {
-                        }
-                        try {
-                            list.deleteById(id);
-                        } catch (Exception e) {
-                        }
-                    }
-                }.start();
+
+                list.deleteById(id);
+
                 model.removeRow(row);
                 try {
                     list.writeToFile();
+                } catch (Exception ex) {
+                    Logger.getLogger(MyRendererAndEditor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ListCarDetail listDetail = new ListCarDetail();
+                try {
+                    listDetail.loadFile();
+                    listDetail.deleteById(id);
+                    listDetail.writeToFile();
                 } catch (Exception ex) {
                     Logger.getLogger(MyRendererAndEditor.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -131,6 +129,7 @@ public final class CarManager extends javax.swing.JFrame {
     private void refreshData() throws HeadlessException {
         try {
             list.loadFile();
+            listDetail.loadFile();
             list.renderToTable(tbModel);
             tableCar.setModel(tbModel);
             tableCar.getColumn(" ").setCellRenderer((TableCellRenderer) new MyRendererAndEditor(tableCar, list));
@@ -138,6 +137,10 @@ public final class CarManager extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
+        btSPCon.setText(String.valueOf(list.sumAmount()));
+        btSPDaBan.setText(String.valueOf(listDetail.sumAmount()));
+        tfId.setEnabled(false);
+        fillData();
     }
 
     /**
@@ -168,6 +171,7 @@ public final class CarManager extends javax.swing.JFrame {
         tfCost = new javax.swing.JTextField();
         btReset = new javax.swing.JButton();
         btDetail = new javax.swing.JButton();
+        btFind = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfSoLuong = new javax.swing.JTextField();
@@ -179,6 +183,11 @@ public final class CarManager extends javax.swing.JFrame {
         btAdd = new javax.swing.JButton();
         btSort = new javax.swing.JButton();
         cbbSort = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        btSPCon = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        btSPDaBan = new javax.swing.JTextField();
         menu = new javax.swing.JMenuBar();
         mnNew = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -219,10 +228,10 @@ public final class CarManager extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sản phẩm"));
@@ -246,7 +255,9 @@ public final class CarManager extends javax.swing.JFrame {
             }
         });
 
-        tfId.setEnabled(false);
+        tfAmount.setEnabled(false);
+
+        tfCost.setEnabled(false);
 
         btReset.setText("Reset");
         btReset.addActionListener(new java.awt.event.ActionListener() {
@@ -262,19 +273,26 @@ public final class CarManager extends javax.swing.JFrame {
             }
         });
 
+        btFind.setText("Tìm kiếm");
+        btFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFindActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tfAmount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(tfBrand, javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,8 +307,9 @@ public final class CarManager extends javax.swing.JFrame {
                             .addComponent(tfName, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(tfYear)
                             .addComponent(tfCost)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btFind)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btReset, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,11 +340,13 @@ public final class CarManager extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(tfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btUpdate)
                     .addComponent(btReset)
-                    .addComponent(btDetail)))
+                    .addComponent(btDetail)
+                    .addComponent(btFind))
+                .addGap(6, 6, 6))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nhập xuất kho"));
@@ -434,6 +455,41 @@ public final class CarManager extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê"));
+
+        jLabel8.setText("Số lượng sản phẩm còn:");
+
+        btSPCon.setEnabled(false);
+
+        jLabel9.setText("Số lượng sản phẩm đã bán:");
+
+        btSPDaBan.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(btSPCon, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(btSPDaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(btSPCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(btSPDaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 9, Short.MAX_VALUE))
+        );
+
         mnNew.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -471,7 +527,8 @@ public final class CarManager extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -484,8 +541,10 @@ public final class CarManager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
@@ -508,7 +567,6 @@ public final class CarManager extends javax.swing.JFrame {
 
     private void btRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRefreshActionPerformed
         // TODO add your handling code here:
-
         refreshData();
     }//GEN-LAST:event_btRefreshActionPerformed
 
@@ -520,14 +578,19 @@ public final class CarManager extends javax.swing.JFrame {
 
         if (id != null) {
             Car car = list.findById(id);
-            tfId.setText(car.getId());
-            tfName.setText(car.getName());
-            tfBrand.setText(car.getBrand());
-            tfYear.setText(String.valueOf(car.getYear()));
-            tfAmount.setText(String.valueOf(car.getAmount()));
-            tfCost.setText(String.valueOf(car.getCost()));
+            fillData(car);
+            tfId.setEnabled(false);
         }
     }//GEN-LAST:event_tableCarMouseClicked
+
+    private void fillData(Car car) {
+        tfId.setText(car.getId());
+        tfName.setText(car.getName());
+        tfBrand.setText(car.getBrand());
+        tfYear.setText(String.valueOf(car.getYear()));
+        tfAmount.setText(String.valueOf(car.getAmount()));
+        tfCost.setText(String.valueOf(car.getCost()));
+    }
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         // TODO add your handling code here:
@@ -602,6 +665,7 @@ public final class CarManager extends javax.swing.JFrame {
 
     private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
         fillData();
+        tfId.setEnabled(true);
     }//GEN-LAST:event_btResetActionPerformed
 
     private void fillData() {
@@ -634,7 +698,7 @@ public final class CarManager extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = tfId.getText();
         if ("".equals(id)) {
-            JOptionPane.showMessageDialog(this, "Hãy chọn sản phẩm để nhập/xuất!");
+            JOptionPane.showMessageDialog(this, "Hãy chọn một sản phẩm!");
             return;
         }
 
@@ -671,7 +735,6 @@ public final class CarManager extends javax.swing.JFrame {
             CarDetail cdt = new CarDetail(id, LocalDate.now(), null, n, n * car.getCost());
 
             try {
-                listDetail.loadFile();
                 listDetail.add(cdt);
                 listDetail.writeToFile();
             } catch (Exception ex) {
@@ -688,7 +751,7 @@ public final class CarManager extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = tfId.getText();
         if ("".equals(id)) {
-            JOptionPane.showMessageDialog(this, "Hãy chọn sản phẩm để nhập/xuất!");
+            JOptionPane.showMessageDialog(this, "Hãy chọn một sản phẩm!");
             return;
         }
 
@@ -735,7 +798,6 @@ public final class CarManager extends javax.swing.JFrame {
             CarDetail cdt = new CarDetail(id, null, LocalDate.now(), n, n * car.getCost());
 
             try {
-                listDetail.loadFile();
                 listDetail.add(cdt);
                 listDetail.writeToFile();
             } catch (Exception ex) {
@@ -771,6 +833,64 @@ public final class CarManager extends javax.swing.JFrame {
         }
         refreshData();
     }//GEN-LAST:event_btSortActionPerformed
+
+    private void btFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFindActionPerformed
+        // TODO add your handling code here:
+        if (tfId.getText().equals("") && tfName.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Hãy nhập id hoặc tên sản phẩm cần tìm kiếm!");
+            tfId.setEnabled(true);
+        } else if (!tfId.getText().equals("") && !tfName.getText().equals("")) {
+            String i = JOptionPane.showInputDialog(this, "Bạn muốn tìm kiếm theo id hay tên sản phẩm?\n  1. Id\n  2. Tên sản phẩm");
+            if (i == null) {
+                return;
+            }
+            if (i.equals("1")) {
+                String id = tfId.getText();
+                Car car = list.findById(id);
+                if (car != null) {
+                    fillData(car);
+                    tfId.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "ID không tồn tại!");
+                    tfId.setEnabled(true);
+                }
+            }
+            if (i.equals("2")) {
+                String id = tfName.getText();
+                Car car = list.findByName(id);
+                if (car != null) {
+                    fillData(car);
+                    tfId.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tên sản phẩm không tồn tại!");
+                    tfId.setEnabled(true);
+                }
+            }
+        } else {
+            if (tfName.getText().equals("")) {
+                String id = tfId.getText();
+                Car car = list.findById(id);
+                if (car != null) {
+                    fillData(car);
+            tfId.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "ID không tồn tại!");
+                    tfId.setEnabled(true);
+                }
+            }
+            if (tfId.getText().equals("")) {
+                String id = tfName.getText();
+                Car car = list.findByName(id);
+                if (car != null) {
+                    fillData(car);
+            tfId.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tên sản phẩm không tồn tại!");
+                    tfId.setEnabled(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_btFindActionPerformed
 
     /**
      * @param args the command line arguments
@@ -810,9 +930,12 @@ public final class CarManager extends javax.swing.JFrame {
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btClose;
     private javax.swing.JButton btDetail;
+    private javax.swing.JButton btFind;
     private javax.swing.JButton btNhap;
     private javax.swing.JButton btRefresh;
     private javax.swing.JButton btReset;
+    private javax.swing.JTextField btSPCon;
+    private javax.swing.JTextField btSPDaBan;
     private javax.swing.JButton btSort;
     private javax.swing.JButton btUpdate;
     private javax.swing.JButton btXuat;
@@ -824,11 +947,14 @@ public final class CarManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuBar menu;

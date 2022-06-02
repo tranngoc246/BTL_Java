@@ -3,9 +3,8 @@ package car;
 import Helper.XFile;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
 public class ListCar {
@@ -26,10 +25,20 @@ public class ListCar {
         return null;
     }
 
-    public void deleteById(String id) {
+    public Car findByName(String name) {
         for (Car car : list) {
-            if (car.getId().equals(id)) {
-                list.remove(car);
+            if (car.getName().equals(name)) {
+                return car;
+            }
+        }
+        return null;
+    }
+
+    public void deleteById(String id) {
+        for (Iterator<Car> iterator = list.iterator(); iterator.hasNext();) {
+            Car value = iterator.next();
+            if (value.getId().equals(id)) {
+                iterator.remove();
             }
         }
     }
@@ -91,5 +100,13 @@ public class ListCar {
             i++;
         }
         table.fireTableStructureChanged();
+    }
+
+    public int sumAmount() {
+        int sum = 0;
+        for (Car car : list) {
+            sum += car.getAmount();
+        }
+        return sum;
     }
 }
