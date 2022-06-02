@@ -141,17 +141,17 @@ public class Signin extends javax.swing.JFrame {
         String name = username.getText();
         String pass = String.valueOf(password.getPassword());
         if ("".equals(name)) {
-            sb.append("Usename is not null!\n");
+            sb.append("Tên đăng nhập không được để trống!\n");
         }
         if ("".equals(pass)) {
-            sb.append("Password is not null!\n");
+            sb.append("Mật khẩu không được để trống!\n");
         }
 
         if (!sb.isEmpty()) {
             JOptionPane.showMessageDialog(this, sb);
             return;
         }
-        
+
         // lay du lieu account
         try {
             list.loadFile();
@@ -161,25 +161,25 @@ public class Signin extends javax.swing.JFrame {
 
         // kiem tra tk co ton tai ko
         if (!list.checkName(name)) {
-            sb.append("Account does not exist!");
+            sb.append("Tài khoản không tồn tại!");
         } else if (!list.checkPass(pass)) {
-            sb.append("Incorrect password!");
+            sb.append("Sai mật khẩu!");
         }
         if (!sb.isEmpty()) {
             JOptionPane.showMessageDialog(this, sb);
             return;
         }
-        
+
         // kiem tra tk da duoc kich hoat chua
         Account account = list.findByName(name);
-        if(account.getType()==0){
-            sb.append("The account is not activated, please request access from admin!");
+        if (account.getType() == 0) {
+            sb.append("Tài khoản chưa được kich hoạt.\nHãy yêu cầu quyền truy cập từ người quản trị!");
         }
         if (!sb.isEmpty()) {
             JOptionPane.showMessageDialog(this, sb);
             return;
         }
-        
+
         CarManager car = new CarManager(account.getType());
         car.setVisible(true);
 
@@ -188,8 +188,7 @@ public class Signin extends javax.swing.JFrame {
 
     private void btSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSignupActionPerformed
         // TODO add your handling code here:
-        Signup car = new Signup(0);
-        car.setVisible(true);
+        new Signup().setVisible(true);
 
     }//GEN-LAST:event_btSignupActionPerformed
 
@@ -202,19 +201,17 @@ public class Signin extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-
-                    Signin signin = new Signin();
-                    signin.setVisible(true);
-                    if (!list.loadFile()) {
-                        new Signup(1).setVisible(true);
-                        signin.dispose();
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(Signin.class.getName()).log(Level.SEVERE, null, ex);
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                
+                Signin signin = new Signin();
+                signin.setVisible(true);
+                if (!list.loadFile()) {
+                   new Signup().setVisible(true);
+                   signin.dispose();
                 }
+            } catch (Exception ex) {
+                Logger.getLogger(Signin.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

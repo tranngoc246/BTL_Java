@@ -64,4 +64,12 @@ public class ListCarDetail {
         }
         return sum;
     }
+     public int sumAmountById(String id) {
+        int sum = 0;
+        for (CarDetail car : list) {
+            if(car.getNgayXuat()!=null && car.getId().equals(id))
+                sum += car.getAmount();
+        }
+        return sum;
+    }
 }

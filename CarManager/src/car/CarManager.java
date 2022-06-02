@@ -740,6 +740,7 @@ public final class CarManager extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(CarManager.class.getName()).log(Level.SEVERE, null, ex);
             }
+            tfSoLuong.setText("");
 
         } else {
             JOptionPane.showMessageDialog(this, "Sản phẩm không tồn tại!");
@@ -803,6 +804,8 @@ public final class CarManager extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(CarManager.class.getName()).log(Level.SEVERE, null, ex);
             }
+            refreshData();
+            tfSoLuong.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Sản phẩm không tồn tại!");
             fillData();
