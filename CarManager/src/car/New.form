@@ -23,44 +23,40 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="294" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btReset" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btAdd" min="-2" pref="66" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btExit" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" pref="90" max="32767" attributes="0"/>
-                              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tfName" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                              <Component id="tfID" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                              <Component id="tfBrand" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                              <Component id="tfYear" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                              <Component id="tfAmount" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                              <Component id="tfCost" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="btAdd" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btReset" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btExit" min="-2" pref="80" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" pref="90" max="32767" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="tfName" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="tfID" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="tfBrand" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="tfYear" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="tfAmount" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                  <Component id="tfCost" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="294" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,7 +101,7 @@
                   <Component id="btReset" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAdd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -115,7 +111,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng:"/>
+        <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng          :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfAmount">
@@ -131,12 +127,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x110;&#x1a1;n gi&#xe1;:"/>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x1a1;n gi&#xe1;            :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ea3;n ph&#x1ea9;m:"/>
+        <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ea3;n ph&#x1ea9;m   :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfCost">
@@ -153,7 +149,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#xea;n s&#x1ea3;n ph&#x1ea9;m:"/>
+        <Property name="text" type="java.lang.String" value="T&#xea;n s&#x1ea3;n ph&#x1ea9;m  :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btExit">
@@ -166,7 +162,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="H&#xe3;ng s&#x1ea3;n xu&#x1ea5;t:"/>
+        <Property name="text" type="java.lang.String" value="H&#xe3;ng s&#x1ea3;n xu&#x1ea5;t :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btReset">
@@ -183,7 +179,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N&#x103;m s&#x1ea3;n xu&#x1ea5;t:"/>
+        <Property name="text" type="java.lang.String" value="N&#x103;m s&#x1ea3;n xu&#x1ea5;t  :"/>
       </Properties>
     </Component>
   </SubComponents>
