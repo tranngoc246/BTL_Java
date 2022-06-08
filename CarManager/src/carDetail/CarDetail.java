@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package carDetail;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-/**
- *
- * @author admin
- */
 public class CarDetail implements Serializable {
     private String id;
     private int amount;
