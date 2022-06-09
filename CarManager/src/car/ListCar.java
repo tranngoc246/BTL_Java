@@ -71,6 +71,14 @@ public class ListCar {
         Collections.sort(list, (Car o1, Car o2) -> o1.getCost() > o2.getCost() ? 1 : -1);
     }
 
+    public void sortByBrand() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getBrand().compareTo(o2.getBrand()));
+    }
+
+    public void sortByYear() {
+        Collections.sort(list, (Car o1, Car o2) -> o1.getYear() > o2.getYear() ? 1 : -1);
+    }
+
     public void print() {
         for (Car car : list) {
             System.out.println(car);
