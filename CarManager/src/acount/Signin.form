@@ -52,6 +52,7 @@
                   </Group>
               </Group>
               <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
+
           </Group>
       </Group>
     </DimensionLayout>
@@ -94,6 +95,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="2"/>
+
         <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p :"/>
       </Properties>
     </Component>
